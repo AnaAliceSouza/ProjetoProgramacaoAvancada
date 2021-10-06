@@ -1,0 +1,111 @@
+package application;
+import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+ 
+public class Main extends Application {
+ 
+    private TableView<Person> table = new TableView<Person>();
+    private final ObservableList<Person> data =
+        FXCollections.observableArrayList(
+            new Person("8535909559", "A revolução dos bichos: Um conto de fadas", "George Orwell"),
+            new Person("8525065366", "Textos cruéis demais para serem lidos rapidamente: 1", " Igor Pires, Gabriela Barreira"),
+            new Person("8551002937", "O Homem de Giz Capa dura", "C. J. Tudor"),
+            new Person("8594318235", "O morro dos ventos uivantes", "Emily Brontë"),
+            new Person("8551005413", "Teto Para Dois", "Beth O’leary")
+        );
+   
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Table View Sample");
+        stage.setWidth(450);
+        stage.setHeight(500);
+ 
+        final Label label = new Label("Biblioteca");
+        label.setFont(new Font("Arial", 20));
+ 
+        table.setEditable(true);
+ 
+        TableColumn firstNameCol = new TableColumn("ISBN");
+        firstNameCol.setMinWidth(100);
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("firstName"));
+ 
+        TableColumn lastNameCol = new TableColumn("Nome do Livro");
+        lastNameCol.setMinWidth(100);
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("lastName"));
+ 
+        TableColumn emailCol = new TableColumn("Autor");
+        emailCol.setMinWidth(200);
+        emailCol.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("email"));
+ 
+        table.setItems(data);
+        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+ 
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+ 
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static class Person {
+ 
+        private final SimpleStringProperty firstName;
+        private final SimpleStringProperty lastName;
+        private final SimpleStringProperty email;
+ 
+        private Person(String fName, String lName, String email) {
+            this.firstName = new SimpleStringProperty(fName);
+            this.lastName = new SimpleStringProperty(lName);
+            this.email = new SimpleStringProperty(email);
+        }
+ 
+        public String getFirstName() {
+            return firstName.get();
+        }
+ 
+        public void setFirstName(String fName) {
+            firstName.set(fName);
+        }
+ 
+        public String getLastName() {
+            return lastName.get();
+        }
+ 
+        public void setLastName(String fName) {
+            lastName.set(fName);
+        }
+ 
+        public String getEmail() {
+            return email.get();
+        }
+ 
+        public void setEmail(String fName) {
+            email.set(fName);
+        }
+    }
+} 
