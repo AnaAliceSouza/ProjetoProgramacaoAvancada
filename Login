@@ -1,0 +1,33 @@
+TextField login = new TextField();
+PasswordField senha = new PasswordField();
+login.setPromptText("Usuário");
+login.setPrefWidth(405);
+senha.setPromptText("Senha");
+senha.setPrefWidth(405);
+
+Button entrar = new Button("Entrar");
+entrar.setPrefWidth(405);
+entrar.setPrefHeight(40);
+
+Button cadastroProfessor = new Button("Professor ou funcionário?\nCadastre-se");
+Button cadastroAluno = new Button("Aluno?\nCadastre-se");
+cadastroProfessor.setPrefWidth(200);
+cadastroAluno.setPrefWidth(200);
+HBox opcoes = new HBox(5);
+opcoes.getChildren().addAll(cadastroProfessor,cadastroAluno);
+
+Hyperlink recuperarLogin = new Hyperlink("Esqueceu seu login? Clique aqui");
+Hyperlink recuperarSenha = new Hyperlink("Esqueceu sua senha? Clique aqui");
+
+VBox loginScene = new VBox(5);
+loginScene.fillWidthProperty().setValue(false);
+loginScene.setAlignment(Pos.CENTER);
+loginScene.getChildren().addAll(recuperarLogin, recuperarSenha, login, senha, entrar, opcoes);
+
+Scene scene = new Scene(loginScene,500,400);
+// Adicionando a folha de estilos (Opcional)
+Scene.getStylesheets().setAll(getClass().getResource("styles.css").toExternalForm());
+
+stage.setScene(scene);
+stage.setTitle("Sitema de Gerenciamento Acadêmico");
+stage.show();
